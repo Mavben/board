@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+@RestController
 // HTTP요청을 받아서 응답을 하는 컴포넌트. 스프링 부트가 자동으로 Bean으로 생성한다.
 @Controller
 @RequiredArgsConstructor
@@ -143,10 +145,10 @@ public class BoardController {
             return "redirect:/loginform";
         }
 
-        Board board = boardService.getBoard(boardId, false);
-        if(board.getUserId() != loginInfo.getUserId()) {
-            return "redirect:/board?boardId=" + boardId; // 글보기로 이동한다.
-        }
+//        Board board = boardService.getBoard(boardId, false);
+//        if(board.getUserId() != loginInfo.getUserId()) {
+//            return "redirect:/board?boardId=" + boardId; // 글보기로 이동한다.
+//        }
         // boardId에 해당하는 글의 제목과 내용을 수정한다.
         boardService.updateBoard(boardId, title, content);
         return "redirect:/board?boardId=" + boardId; // 수정된 글 보기로 리다이렉트한다.

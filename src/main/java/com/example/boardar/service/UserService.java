@@ -4,6 +4,7 @@ import com.example.boardar.dto.User;
 
 import java.util.List;
 
+
 public class UserService {
     public void addUser(String name, String email, String password) {
     }

@@ -9,6 +9,8 @@
 			 - Comment 기능
 			 - Attach File
 
+			 - 본문 텍스트 blob, clob로 저장
+
 */
 
 package com.example.boardar;
