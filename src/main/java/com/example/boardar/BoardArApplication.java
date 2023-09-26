@@ -11,8 +11,6 @@
 
 */
 
-
-
 package com.example.boardar;
 
 import org.springframework.boot.SpringApplication;
