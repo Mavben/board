@@ -1,7 +1,21 @@
 package com.example.boardar.dao;
 
+/*
+    N+1 문제
+
+    실무에서 eager loading은 사용하면 안됨
+    가급적 지연 로딩만 사용(특히 실무에서)
+    즉시 로딩을 적용하면 예상하지 못한 SQL이 발생
+    즉시 로딩은 JPQL에서 N + 1 문제를 일으킨다.
+    @ManyToOne, @OneToOne은 기본이 즉시 로딩 ➔ LAZY로 설정
+    @OneToMany, @ManyToMany는 기본이 지연 로딩
+
+     ** https://www.inflearn.com/questions/292023/n-1-select-%EB%AC%B8%EC%A0%9C
+        https://youtu.be/rYj8PLIE6-k?si=RNj4I_1uFktn6Ph_
+ */
+
+
 import com.example.boardar.dto.Board;
-import com.example.boardar.dto.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
