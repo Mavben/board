@@ -30,7 +30,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     // DB
+    implementation 'mysql:mysql-connector-java:8.0'
     runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // spring security
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -44,9 +46,17 @@ dependencies {
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // Spring Boot Starter Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Hibernate ORM
+    implementation 'org.hibernate:hibernate-core:5.5.6.Final'
+
+    // Database Driver (H2 Database)
+    runtimeOnly 'com.h2database:h2'
 }

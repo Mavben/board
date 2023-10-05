@@ -1,7 +1,14 @@
 package com.example.boardar.dto;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Board {
     public void setUserId(int userId) {
     }

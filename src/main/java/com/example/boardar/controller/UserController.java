@@ -4,7 +4,6 @@ import com.example.boardar.dto.LoginInfo;
 import com.example.boardar.dto.User;
 import com.example.boardar.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@Controller
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;

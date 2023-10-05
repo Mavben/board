@@ -1,0 +1,17 @@
+<!--상세페이지1-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>게시글상세페이지</title>
+</head>
+<body>
+<!--상세페이지5-->
+<h1 th:text="${testboard.title}">제목입니다</h1>
+<p th:text="${testboard.content}">내용이들어갈부분입니다</p>
+<a th:href="@{/board/delete(id=${testboard.id})}">글삭제</a>
+<!--수정1-->
+<a th:href="@{/board/modify/{id}(id = ${testboard.id})}">수정</a>
+
+</body>
+</html>

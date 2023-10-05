@@ -1,7 +1,13 @@
 package com.example.boardar.dto;
 
-import java.util.List;
+import lombok.*;
 
+import java.util.List;
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginInfo {
 
     public LoginInfo(Object userId, Object email, Object name) {

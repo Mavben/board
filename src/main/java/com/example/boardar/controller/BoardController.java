@@ -4,19 +4,13 @@ import com.example.boardar.dto.Board;
 import com.example.boardar.dto.LoginInfo;
 import com.example.boardar.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-// HTTP요청을 받아서 응답을 하는 컴포넌트. 스프링 부트가 자동으로 Bean으로 생성한다.
-@Controller
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;
@@ -26,7 +20,7 @@ public class BoardController {
     // http://localhost:8080/ -----> "list"라는 이름의 템플릿을 사용(forward)하여 화면에 출력.
     // list를 리턴한다는 것은
     // classpath:/templates/list.html
-    @GetMapping("/")
+    @GetMapping("/board/write")
     public String list(@RequestParam(name="page", defaultValue = "1") int page, HttpSession session, Model model){ // HttpSession, Model은 Spring이 자동으로 넣어준다.
         // 게시물 목록을 읽어온다. 페이징 처리한다.
         LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
@@ -46,7 +40,7 @@ public class BoardController {
         model.addAttribute("list", list);
         model.addAttribute("pageCount", pageCount);
         model.addAttribute("currentPage", currentPage);
-        return "list";
+        return "boardwrite";
     }
 
     // /board?id=3 // 파라미터 id , 파라미터 id의 값은 3
@@ -153,4 +147,41 @@ public class BoardController {
         boardService.updateBoard(boardId, title, content);
         return "redirect:/board?boardId=" + boardId; // 수정된 글 보기로 리다이렉트한다.
     }
+
+    @GetMapping("/list")
+    public String boardList(Model model){
+        return "list";
+    }
+
+    @GetMapping("/board/view")
+    public String boardView(){
+
+        return "boardview";
+    }
+
+    //수정2
+    //PathVariable이라는 것은 modify 뒤에있는 {id}부분이 인식이되서 Integer형태의 id로 들어온다는것
+    @GetMapping("/board/modify/{id}")
+    public String boardModify(@PathVariable("id") Integer id, Model model){
+
+        //수정4    //상세페이지에 있는 내용과, 수정페이지의 내용이 같기때문에 위 코드와 같은 것을 확인할수있다
+        model.addAttribute("testboard", boardService.boardview(id));
+
+        return "boardmodify";
+    }
+    //수정7
+    @PostMapping("/board/update/{id}")
+    public String boardUpdate(@PathVariable("id") Integer id, testboard board){
+        //기존에있던글이 담겨져서온다.
+        testboard boardTemp = boardService.boardview(id);
+
+        //기존에있던 내용을 새로운 내용으로 덮어씌운다.
+        boardTemp.setTitle(board.getTitle());
+        boardTemp.setContent(board.getContent());
+
+        boardService.write(boardTemp); //추가 → 수정한내용을 boardService의 write부분에 넣기
+        return "redirect:/board/list";
+    }
+
+
 }
