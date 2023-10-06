@@ -1,19 +1,17 @@
 package com.example.boardar.controller;
 
 import com.example.boardar.dto.LoginInfo;
-import com.example.boardar.dto.User;
+import com.example.boardar.dto.UserDto;
 import com.example.boardar.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping
 public class UserController {
     private final UserService userService;
 
@@ -72,7 +70,7 @@ public class UserController {
         System.out.println("password : " + password);
 
         try{
-            User user = userService.getUser(email);
+            UserDto user = userService.getUser(email);
             if(user.getPassword().equals(password)){
                 System.out.println("암호가 같습니다.");
                 LoginInfo loginInfo = new LoginInfo(user.getUserId(), user.getEmail(), user.getName());

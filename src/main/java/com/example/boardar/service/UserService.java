@@ -1,6 +1,6 @@
 package com.example.boardar.service;
 
-import com.example.boardar.dto.User;
+import com.example.boardar.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public class UserService {
     public void addUser(String name, String email, String password) {
     }
 
-    public User getUser(String email) {
+    public UserDto getUser(String email) {
         return null;
     }
 

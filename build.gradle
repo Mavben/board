@@ -32,7 +32,6 @@ dependencies {
     // DB
     implementation 'mysql:mysql-connector-java:8.0'
     runtimeOnly 'com.mysql:mysql-connector-j'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // spring security
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -59,4 +58,11 @@ dependencies {
 
     // Database Driver (H2 Database)
     runtimeOnly 'com.h2database:h2'
+
+    // mybatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+
+    // logging
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }

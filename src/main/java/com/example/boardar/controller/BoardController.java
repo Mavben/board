@@ -1,18 +1,22 @@
 package com.example.boardar.controller;
 
-import com.example.boardar.dto.Board;
+import com.example.boardar.dto.BoardDto;
 import com.example.boardar.dto.LoginInfo;
 import com.example.boardar.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+
+@Slf4j
 @RestController
+@RequestMapping
 @RequiredArgsConstructor
-public class BoardController {
+public class BoardController<Board> {
     private final BoardService boardService;
 
     // 게시물 목록을 보여준다.
@@ -27,7 +31,7 @@ public class BoardController {
         model.addAttribute("loginInfo", loginInfo); // 템플릿에게
 
         int totalCount = boardService.getTotalCount(); // 11
-        List<Board> list = boardService.getBoards(page); // page가 1,2,3,4 ....
+        List<BoardDto> list = boardService.getBoards(page); // page가 1,2,3,4 ....
         int pageCount = totalCount / 10; // 1
         if(totalCount % 10 > 0){ // 나머지가 있을 경우 1page를 추가
             pageCount++;
@@ -50,13 +54,11 @@ public class BoardController {
     public String board(@RequestParam("boardId") int boardId, Model model){
         System.out.println("boardId : " + boardId);
 
-        Board board = boardService.getBoard(boardId);
-        model.addAttribute("board", board);
+        Board boardDto = boardService.getBoard(boardId);
+        model.addAttribute("board", boardDto);
         return "board";
     }
 
-    // 삭제한다. 관리자는 모든 글을 삭제할 수 있다.
-    // 수정한다.
 
     @GetMapping("/writeForm")
     public String writeForm(HttpSession session, Model model){
