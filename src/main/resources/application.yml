@@ -3,6 +3,7 @@ spring:
     url: jdbc:mysql://localhost:3306/database
     username: root
     password: 878799
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -22,5 +23,3 @@ spring:
     secret: a2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbQ==
     token-validity-in-seconds: 86400
 
-server:
-  port: 63342
