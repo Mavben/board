@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class  {
+public class UserService {
     public void adUserServicedUser(String name, String email, String password) {
     }
 
