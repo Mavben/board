@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class UserDto {
 
     public Object getPassword() {

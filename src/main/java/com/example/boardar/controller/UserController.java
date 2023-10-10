@@ -1,5 +1,8 @@
 package com.example.boardar.controller;
 
+//import com.example.boardar.dto.LoginInfo;
+//import com.example.boardar.dto.UserDto;
+
 import com.example.boardar.dto.LoginInfo;
 import com.example.boardar.dto.UserDto;
 import com.example.boardar.service.UserService;
@@ -93,7 +96,6 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(HttpSession httpSession){
-        // 세션에서 회원정보를 삭제한다.
         httpSession.removeAttribute("loginInfo");
         return "redirect:/";
     }

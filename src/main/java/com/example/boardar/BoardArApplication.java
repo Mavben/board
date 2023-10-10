@@ -9,7 +9,6 @@
 			 - Comment 기능
 			 - Attach File
              - jpa table 3개 이상
-
 			 - 본문 텍스트 blob, clob로 저장
 
 */

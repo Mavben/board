@@ -7,7 +7,7 @@ import java.util.List;
 @Setter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class LoginInfo {
 
     public LoginInfo(Object userId, Object email, Object name) {

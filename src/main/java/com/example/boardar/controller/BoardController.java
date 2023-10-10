@@ -19,16 +19,11 @@ import java.util.List;
 public class BoardController<Board> {
     private final BoardService boardService;
 
-    // 게시물 목록을 보여준다.
-    // 컨트롤러의 메소드가 리턴하는 문자열은 템플릿 이름이다.
-    // http://localhost:8080/ -----> "list"라는 이름의 템플릿을 사용(forward)하여 화면에 출력.
-    // list를 리턴한다는 것은
-    // classpath:/templates/list.html
     @GetMapping("/board/write")
     public String list(@RequestParam(name="page", defaultValue = "1") int page, HttpSession session, Model model){ // HttpSession, Model은 Spring이 자동으로 넣어준다.
-        // 게시물 목록을 읽어온다. 페이징 처리한다.
-        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
-        model.addAttribute("loginInfo", loginInfo); // 템플릿에게
+
+//        LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
+//        model.addAttribute("loginInfo", loginInfo); // 템플릿에게
 
         int totalCount = boardService.getTotalCount(); // 11
         List<BoardDto> list = boardService.getBoards(page); // page가 1,2,3,4 ....
@@ -37,24 +32,18 @@ public class BoardController<Board> {
             pageCount++;
         }
         int currentPage = page;
-//        System.out.println("totalCount : " + totalCount);
-//        for(Board board : list){
-//            System.out.println(board);
-//        }
+
         model.addAttribute("list", list);
         model.addAttribute("pageCount", pageCount);
         model.addAttribute("currentPage", currentPage);
         return "boardwrite";
     }
 
-    // /board?id=3 // 파라미터 id , 파라미터 id의 값은 3
-    // /board?id=2
-    // /board?id=1
     @GetMapping("/board")
     public String board(@RequestParam("boardId") int boardId, Model model){
         System.out.println("boardId : " + boardId);
 
-        Board boardDto = boardService.getBoard(boardId);
+        BoardDto boardDto = boardService.getBoard(boardId);
         model.addAttribute("board", boardDto);
         return "board";
     }
@@ -62,10 +51,9 @@ public class BoardController<Board> {
 
     @GetMapping("/writeForm")
     public String writeForm(HttpSession session, Model model){
-        // 로그인한 사용자만 글을 써야한다.
-        // 세션에서 로그인한 정보를 읽어들인다. 로그인을 하지 않았다면 리스트보기로 자동 이동 시킨다.
+
         LoginInfo loginInfo = (LoginInfo)session.getAttribute("loginInfo");
-        if(loginInfo == null){ // 세션에 로그인 정보가 없으면 /loginform으로 redirect
+        if(loginInfo == null){
             return "redirect:/loginform";
         }
 
@@ -84,8 +72,7 @@ public class BoardController<Board> {
         if(loginInfo == null){ // 세션에 로그인 정보가 없으면 /loginform으로 redirect
             return "redirect:/loginform";
         }
-        // 로그인한 사용자만 글을 써야한다.
-        // 세션에서 로그인한 정보를 읽어들인다. 로그인을 하지 않았다면 리스트보기로 자동 이동 시킨다.
+
         System.out.println("title : " + title);
         // 로그인 한 회원 정보 + 제목, 내용을 저장한다.System.out.println("content : " + content);
 
@@ -123,8 +110,9 @@ public class BoardController<Board> {
             return "redirect:/loginform";
         }
         // boardId에 해당하는 정보를 읽어와서 updateform 템플릿에게 전달한다.
-        Board board = boardService.getBoard(boardId, false);
-        model.addAttribute("board", board);
+        //Board board = boardService.getBoard(boardId, false);
+        Object board;
+//        model.addAttribute("board", board);
         model.addAttribute("loginInfo", loginInfo);
         return "updateform";
     }
@@ -141,11 +129,7 @@ public class BoardController<Board> {
             return "redirect:/loginform";
         }
 
-//        Board board = boardService.getBoard(boardId, false);
-//        if(board.getUserId() != loginInfo.getUserId()) {
-//            return "redirect:/board?boardId=" + boardId; // 글보기로 이동한다.
-//        }
-        // boardId에 해당하는 글의 제목과 내용을 수정한다.
+
         boardService.updateBoard(boardId, title, content);
         return "redirect:/board?boardId=" + boardId; // 수정된 글 보기로 리다이렉트한다.
     }
@@ -160,30 +144,5 @@ public class BoardController<Board> {
 
         return "boardview";
     }
-
-    //수정2
-    //PathVariable이라는 것은 modify 뒤에있는 {id}부분이 인식이되서 Integer형태의 id로 들어온다는것
-    @GetMapping("/board/modify/{id}")
-    public String boardModify(@PathVariable("id") Integer id, Model model){
-
-        //수정4    //상세페이지에 있는 내용과, 수정페이지의 내용이 같기때문에 위 코드와 같은 것을 확인할수있다
-        model.addAttribute("testboard", boardService.boardview(id));
-
-        return "boardmodify";
-    }
-    //수정7
-    @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, testboard board){
-        //기존에있던글이 담겨져서온다.
-        testboard boardTemp = boardService.boardview(id);
-
-        //기존에있던 내용을 새로운 내용으로 덮어씌운다.
-        boardTemp.setTitle(board.getTitle());
-        boardTemp.setContent(board.getContent());
-
-        boardService.write(boardTemp); //추가 → 수정한내용을 boardService의 write부분에 넣기
-        return "redirect:/board/list";
-    }
-
 
 }

@@ -1,6 +1,6 @@
 package com.example.boardar.service;
 
-import com.example.boardar.dto.Board;
+import com.example.boardar.dto.BoardDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +11,11 @@ public class BoardService {
         return 0;
     }
 
-    public List<Board> getBoards(int page) {
+    public List<BoardDto> getBoards(int page) {
         return null;
     }
 
-    public Board getBoard(int boardId) {
+    public BoardDto getBoard(int boardId) {
         return null;
     }
 
@@ -25,7 +25,7 @@ public class BoardService {
     public void deleteBoard(int boardId) {
     }
 
-    public Board getBoard(int boardId, boolean b) {
+    public BoardDto getBoard(int boardId, boolean b) {
         return null;
     }
 
@@ -33,5 +33,9 @@ public class BoardService {
     }
 
     public void deleteBoard(Object userId, int boardId) {
+    }
+
+    public <testboard> testboard boardview(Integer id) {
+        return null;
     }
 }

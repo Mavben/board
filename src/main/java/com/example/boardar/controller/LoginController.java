@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequiredArgsConstructor
 public class LoginController {
     @PostMapping(value = "/logout")
-    //@ApiOperation(value="로그아웃")
     public ResponseEntity<Void> logout(HttpServletRequest servletRequest) {
 
         LoginService loginService = new LoginService();
